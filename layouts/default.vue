@@ -10,7 +10,7 @@
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
                 <v-toolbar flat style="background:none" >
-                    <v-text-field v-model="search_name" hide-details label="Search for movie"  single-line></v-text-field>
+                    <v-text-field v-model="search_bar" hide-details label="Search for movie"  single-line></v-text-field>
                     <v-btn elevation="0" @click="searchForMovie"><v-icon flat>mdi-magnify</v-icon></v-btn>
                     <v-spacer></v-spacer>
                 </v-toolbar>
@@ -29,48 +29,34 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import {mapGetters, mapActions, mapMutations} from 'vuex';
 export default {
     mounted(){
-        // this.search_name = this.$store.getters.getCurrentSearch
-        
+        this.search_bar = this.getCurrentSearch()
     },
     methods:{
+        ...mapMutations(['setCurrentSearch']),
+        ...mapGetters(['getCurrentSearch']),
+        ...mapActions(['searchForMoviesByName']),
 
-        ...mapActions({
-            movies:'Movies'
-        }),
-        ...mapGetters({
-            search_name:'currentSearch'
-        })
+        searchForMovie(){
+            this.setCurrentSearch(this.search_bar)
+            if(this.search_bar.length !=0){
+                this.searchForMoviesByName()
+            }
+        }
     },
     data() {
         return {
-            
-            clipped: false,
-            drawer: false,
-            fixed: false,
-            items: [
-                {
-                    icon: 'mdi-apps',
-                    title: 'Welcome',
-                    to: '/'
-                },
-                {
-                    icon: 'mdi-chart-bubble',
-                    title: 'Inspire',
-                    to: '/inspire'
-                }
-            ],
-            miniVariant: false,
-            right: true,
-            rightDrawer: false,
-            title: 'Vuetify.js'
+            search_bar:'',
+            fixed:false,
         }
     },
-    computed:{
-        search_name(){
-            return this.$store.getters.getCurrentSearch
+    watch:{
+        search_bar:{
+            handler(ol, ne){
+                
+            }
         }
     }
 }

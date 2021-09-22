@@ -13,7 +13,7 @@
 <script>
 import axios from 'axios';
 import Movie from "@/components/Movie.vue"
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters, mapMutations } from "vuex"
 
 export default {
     components: {
@@ -32,19 +32,17 @@ export default {
     },
 
     created() {
-        this.$store.dispatch('getBackAllMovies')
+        this.getBackAllMovies()
     },
     methods: {
-        ...mapGetters(['currentSearch', 'Movies']),
+        ...mapGetters(['currentSearch', 'getMovies']),
+        ...mapActions(['getBackAllMovies']),
+        
 
-        getMoviesData() {
-            // axios.get('https://api.themoviedb.org/3/movie/popular?api_key=d2fa7ad1e26af0847d349d7dbd5f93e5&language=en-US&page=1').then(r => this.movies = r.data.results)
-            // console.log(this.$root.$children[2].$data)
-        }
     },
-    computed:{
-        movies(){
-            return this.$store.getters.getMovies 
+    computed: {
+        movies() {
+            return this.getMovies()
         }
     }
 }
