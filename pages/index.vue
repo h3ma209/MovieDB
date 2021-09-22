@@ -13,7 +13,7 @@
 <script>
 import axios from 'axios';
 import Movie from "@/components/Movie.vue"
-import { mapActions, mapGetters, mapMutations } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default {
     components: {

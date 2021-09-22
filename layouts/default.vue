@@ -10,7 +10,7 @@
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
                 <v-toolbar flat style="background:none" >
-                    <v-text-field v-model="search_bar" hide-details label="Search for movie"  single-line></v-text-field>
+                    <v-text-field v-on:keyup.enter="searchForMovie" v-model="search_bar" hide-details label="Search for movie"  single-line></v-text-field>
                     <v-btn elevation="0" @click="searchForMovie"><v-icon flat>mdi-magnify</v-icon></v-btn>
                     <v-spacer></v-spacer>
                 </v-toolbar>
@@ -37,12 +37,15 @@ export default {
     methods:{
         ...mapMutations(['setCurrentSearch']),
         ...mapGetters(['getCurrentSearch']),
-        ...mapActions(['searchForMoviesByName']),
+        ...mapActions(['searchForMoviesByName','getBackAllMovies']),
 
         searchForMovie(){
             this.setCurrentSearch(this.search_bar)
             if(this.search_bar.length !=0){
                 this.searchForMoviesByName()
+            }
+            else{
+                this.getBackAllMovies()
             }
         }
     },
