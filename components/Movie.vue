@@ -15,11 +15,11 @@
             <div>{{data.overview}}</div>
         </v-card-text>
         <v-divider class="mx-4"></v-divider>
-        
+
         <v-card-text>
-            <v-chip-group  active-class="deep-purple accent-4 white--text" column>
-                <v-chip v-for="category,i in ['horror','Comedy', 'Drama']" :key="i">
-                    {{category}}
+            <v-chip-group active-class="deep-purple accent-4 white--text" column>
+                <v-chip v-for="category,i in data.genre_ids" :key="i">
+                    {{IdToCategory(category)}}
                 </v-chip>
             </v-chip-group>
         </v-card-text>
@@ -28,9 +28,12 @@
 
 <script>
 export default {
-    props: ['data'],
-    setup() {
+    props: ['data', 'categories'],
+    methods: {
+        IdToCategory(id) {
+            return this.categories.filter(el => id == el.id)[0].name
 
-    },
+        }
+    }
 }
 </script>

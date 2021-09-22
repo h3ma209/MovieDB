@@ -3,7 +3,7 @@
 
         <v-row>
             <v-col v-for="movie,i in movies" :key="i">
-                <Movie :data='movie'></Movie>
+                <Movie :data='movie' :categories="categories"></Movie>
             </v-col>
         </v-row>
 
@@ -22,28 +22,28 @@ export default {
     },
     data() {
         return {
-            // movies: [
-            //     //     {original_title:'Truth Or Dare', overview:'lorem ipsum dolor amet', vote_average:5, category:['Horror', 'Comedy', "Drama"], duration:0, poster_path:'/ei2waWQAG8NP244WShIFgGu9IOu.jpg', date:'feb 01 2019'},
-            //     //     {original_title:'Truth Or Dare', overview:'lorem ipsum dolor amet', vote_average:5, category:['Horror', 'Comedy', "Drama"], duration:0, poster_path:'/lyqkQ6y7d4YGVQrRjtmGTRMVcDY.jpg', date:'feb 01 2019'},
-            //     //     {original_title:'Truth Or Dare', overview:'lorem ipsum dolor amet', vote_average:5, category:['Horror', 'Comedy', "Drama"], duration:0, poster_path:'/gPnyPMtFLHjx77CXASOXYC3urhb.jpg', date:'feb 01 2019'},
-            //     // 
-            // ]
+            categories:{}
         }
     },
 
     created() {
+        this.getCategories()
         this.getBackAllMovies()
+        
     },
     methods: {
         ...mapGetters(['currentSearch', 'getMovies']),
         ...mapActions(['getBackAllMovies']),
-        
+        getCategories() {
+            axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=d2fa7ad1e26af0847d349d7dbd5f93e5&language=en-US').then(r=> this.categories = r.data.genres)
+        }
 
     },
     computed: {
         movies() {
             return this.getMovies()
-        }
+        },
+
     }
 }
 </script>

@@ -1,7 +1,8 @@
 import axios from "axios"
 export const state = () => ({
     currentSearch: '',
-    Movies: []
+    Movies: [],
+    
 })
 
 export const mutations = {
@@ -10,7 +11,8 @@ export const mutations = {
     },
     setAllMovies(state, payload){
         state.Movies = payload
-    }
+    },
+
 
 }
 
