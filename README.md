@@ -20,4 +20,4 @@ $ npm run generate
 ## LIVE
 [link](https://moviedbb.netlify.app/)
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+![](https://raw.githubusercontent.com/h3ma209/MovieDB/master/Screenshot%20(27).png)
